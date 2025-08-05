@@ -22,7 +22,7 @@ namespace SearchEngine
             _generator = BertOnnxTextEmbeddingGenerationService.Create(Constants.ModelPath, Constants.VocabPath);
         }
 
-        public async Task<float[]> GenerateEmbeddingAsync(string text, CancellationToken ct)
+        public async Task<float[]> GenerateEmbeddingAsync(string text, CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
