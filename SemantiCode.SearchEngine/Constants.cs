@@ -2,8 +2,8 @@
 {
     internal static class Constants
     {
-        public const string ModelPath = "models\\bge-base.onnx";
-        public const string VocabPath = "models\\vocab.txt";
+        public const string ModelPath = "..\\SemantiCode.SearchEngine\\models\\bge-base.onnx";
+        public const string VocabPath = "..\\SemantiCode.SearchEngine\\models\\vocab.txt";
 
     }
 }
