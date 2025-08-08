@@ -35,6 +35,10 @@ namespace SearchEngine
 
         }
 
+        public IEnumerable<SnippetDocument> GetAll() 
+        {             
+            return _collection.FindAll();
+        }
         public void Dispose()
         {
             _database?.Dispose();
