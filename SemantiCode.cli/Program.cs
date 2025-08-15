@@ -10,9 +10,29 @@ static void PrintHeader()
     Console.WriteLine("This is SemantiCode CLI.");
 }
 
+static int Fail(string message)
+{
+    Console.WriteLine($"Error: {message}");
+    return 1;
+}
+
 static int Search(string[] args) 
 { 
     var options = ParseSearch(args);
+
+    if (options.Query == null)
+    {
+        return Fail("Query is required.");
+    }
+
+    if (options.K.HasValue && options.K.Value <= 0)
+    {
+        return Fail("K must be a positive integer.");
+    }
+
+
+
+    
 
     Console.WriteLine("command: search");
     Console.WriteLine($"query: {(options.Query ?? "missing")}");
@@ -24,6 +44,16 @@ static int Search(string[] args)
 static int Index(string[] args)
 {
     var options = ParseIndex(args);
+
+    if (options.Path == null)
+    {
+        return Fail("Path is required.");
+    }
+
+    if (!Directory.Exists(options.Path) && !File.Exists(options.Path))
+    {
+        return Fail($"Path '{options.Path}' does not exist.");
+    }
 
     Console.WriteLine("command: index");
     Console.WriteLine($"path: {(options.Path ?? "missing")}");
@@ -88,7 +118,7 @@ static void help()
     Console.WriteLine("  index <path>     Index the code at the specified path.");
     Console.WriteLine("  search <query> [-k <number>]  Search for the query with optional k parameter.");
     Console.WriteLine("Options:");
-    Console.WriteLine("  -k, -k <number> Specify the number of results to return (default is 10).");
+    Console.WriteLine("  -k, -k <number> Specify the number of results to return.");
 }
 static bool isHelp(string[] s)
 { 
